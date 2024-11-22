@@ -46,7 +46,7 @@ async def query_gemini_sdk(prompt: str):
         response = model.generate_content(prompt)
         return response.text
     except Exception as e:
-        logging.error(f"Error while querying Gemini: {e}")
+        logging.error(f"Error while querying Gemini: {type(e).__name__}")
         return "Sorry, there was an error processing your request."
 
 #ask-gemini func
@@ -55,7 +55,7 @@ async def query_gemini_with_history(prompt: str):
         response = chat.send_message(prompt)
         return response.text
     except Exception as e:
-        logging.error(f"Error while querying Gemini: {e}")
+        logging.error(f"Error while querying Gemini: {type(e).__name__}")
         return "Sorry, there was an error processing your request."
 
 #Cat Image func
@@ -71,7 +71,7 @@ async def fetch_cat_image():
                     logging.error(f"Cat API returned non-200 status: {response.status}")
                     return None
     except Exception as e:
-        logging.error(f"Failed to fetch cat image: {e}")
+        logging.error(f"Failed to fetch cat image: {type(e).__name__}")
         return None
 
 #Dog Image func
@@ -87,7 +87,7 @@ async def fetch_dog_image():
                     logging.error(f"Dog API returned non-200 status: {response.status}")
                     return None
     except Exception as e:
-        logging.error(f"Failed to fetch dog image: {e}")
+        logging.error(f"Failed to fetch dog image: {type(e).__name__}")
         return None
 
 #Zenyatta Quote func
@@ -103,7 +103,7 @@ async def fetch_zen_quote():
                     logging.error(f"Zen API returned non-200 status: {response.status}")
                     return None
     except Exception as e:
-        logging.error(f"Failed to fetch zen quote: {e}")
+        logging.error(f"Failed to fetch zen quote: {type(e).__name__}")
         return None
 
 #Load mentions
@@ -177,7 +177,7 @@ async def on_member_join(member):
             await welcome_channel.send(additional_message)
             logging.info(f"Sent welcome message for {member} in {welcome_channel.name}")
         except Exception as e:
-            logging.error(f"Error sending welcome message for {member}: {e}")
+            logging.error(f"Error sending welcome message for {member}: {type(e).__name__}")
     else:
         logging.warning(f"No #welcome channel found in {member.guild.name}")
 
@@ -198,7 +198,7 @@ async def ask_gemini_cmd(interaction: discord.Interaction, prompt: str):
         await interaction.response.send_message(response, ephemeral=False)
         logging.info(f"Gemini response sent to {interaction.user} in {interaction.channel}: {response[:50]} ...")
     except Exception as e:
-        logging.error(f"Error in ask command: {e}")
+        logging.error(f"Error in ask command: {type(e).__name__}")
         await interaction.response.send_message("Sorry, there was an error processing your request.", ephemeral=True)
 
 @bot.tree.command(name="meow", description="Fetches a Cute Kitty")
@@ -222,11 +222,36 @@ async def fetch_dog(interaction: discord.Interaction):
 @bot.tree.command(name="zen", description="Fetches a Zenyatta Quote")
 async def fetch_zen(interaction: discord.Interaction):
     zen_url = await fetch_zen_quote()
+    zen_emote = discord.utils.get(interaction.guild.emojis, name="zen")
     if zen_url:
-        await interaction.response.send_message(zen_url, ephemeral=False)
+        if zen_emote:
+            await interaction.response.send_message(str(zen_emote) + " " + zen_url + " " + str(zen_emote), ephemeral=False)
+        else:
+            await interaction.response.send_message(zen_url, ephemeral=False)
         logging.info(f"Sent a zen quote to {interaction.user} in {interaction.channel}: {zen_url}")
     else:
         await interaction.response.send_message("Couldn't fetch a zen quote. Try again later!", ephemeral=False)
+
+@bot.tree.command(name="emote", description="Make the bot mimic an emote")
+async def mimic_emote(interaction: discord.Interaction, emote: str):
+    req_emote = discord.utils.get(interaction.guild.emojis, name=emote)
+    if req_emote:
+        await interaction.response.defer(ephemeral=True)
+        webhook = None
+        for existing_webhook in await interaction.channel.webhooks():
+            if existing_webhook.name == "MimicWebhook":
+                webhook = existing_webhook
+                break
+        if not webhook:
+            webhook = await interaction.channel.create_webhook(name="MimicWebhook")
+        await webhook.send(
+            content=str(req_emote),
+            username=interaction.user.display_name,
+            avatar_url=interaction.user.display_avatar.url,
+        )
+        await interaction.delete_original_response()
+        return
+    await interaction.response.send_message(f"Emote '{emote}' not found in this server.", ephemeral=True)
 
 @bot.tree.command(name="help", description="Show the bot's help menu")
 async def help_command(interaction: discord.Interaction):
@@ -240,7 +265,7 @@ async def help_command(interaction: discord.Interaction):
         - Type `/woof` to fetch a delightful doggy photo.
     3. **Yo Momma Joke**
         - Try `yomomma` for a good laugh with a classic "Yo Momma" joke.
-    4. **Animated Emoji (No Nitro) [DISABLED]**
+    4. **Animated Emoji (No Nitro)**
         - Use `/emote` followed by an animated emoji. Example: `/emote agunr`.
     5. **Zenyatta**
         - Use `/zen` to listen to what zenyatta says. Experience Tranquility!
