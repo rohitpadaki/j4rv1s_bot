@@ -1,5 +1,7 @@
 *.ps1
 *.lnk
 *.json
+*.log
 !jokes.json
 .env
+/runner

@@ -257,26 +257,26 @@ async def mimic_emote(interaction: discord.Interaction, emote: str):
 async def help_command(interaction: discord.Interaction):
     await interaction.response.send_message("""**Hi! I am J4RV1S**
 
-    Hey there! 🌟 I'm here to assist you with some fun and useful commands. Take a look at what I can do:
+Hey there! 🌟 I'm here to assist you with some fun and useful commands. Take a look at what I can do:
 
-    1. **Random Cat Image**
-        - Type `/meow` to see a random adorable cat picture.
-    2. **Random Dog Image**
-        - Type `/woof` to fetch a delightful doggy photo.
-    3. **Yo Momma Joke**
-        - Try `yomomma` for a good laugh with a classic "Yo Momma" joke.
-    4. **Animated Emoji (No Nitro)**
-        - Use `/emote` followed by an animated emoji. Example: `/emote agunr`.
-    5. **Zenyatta**
-        - Use `/zen` to listen to what zenyatta says. Experience Tranquility!
-    6. **Mention Message**
-        - Want a message to be showcased when pinged? Set yourself with `/set` command.
-    7. **AI Chatbot**
-        - Start your message with `/ask` for a chat with our AI-powered chatbot.
-    8. **Help Menu**
-        - Type `/help` to display this help message.
+1. **Random Cat Image**
+    - Type `/meow` to see a random adorable cat picture.
+2. **Random Dog Image**
+    - Type `/woof` to fetch a delightful doggy photo.
+3. **Yo Momma Joke**
+    - Try `yomomma` for a good laugh with a classic "Yo Momma" joke.
+4. **Animated Emoji (No Nitro)**
+    - Use `/emote` followed by an animated emoji. Example: `/emote agunr`.
+5. **Zenyatta**
+    - Use `/zen` to listen to what zenyatta says. Experience Tranquility!
+6. **Mention Message**
+    - Want a message to be showcased when pinged? Set yourself with `/set` command.
+7. **AI Chatbot**
+    - Start your message with `/ask` for a chat with our AI-powered chatbot.
+8. **Help Menu**
+    - Type `/help` to display this help message.
 
-    Feel free to explore these commands and have fun! If you want to work on this bot maybe because you don't have anything useful to do, Ping Paneer! 🚀""", ephemeral=False)
+Feel free to explore these commands and have fun! If you want to work on this bot maybe because you don't have anything useful to do, Ping Paneer! 🚀""", ephemeral=False)
 
 token = os.getenv("BOT_TOKEN")
 bot.run(token)
