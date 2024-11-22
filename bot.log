@@ -1,0 +1,93 @@
+2024-11-22 15:52:23,590 - INFO - logging in using static token
+2024-11-22 15:52:35,055 - INFO - logging in using static token
+2024-11-22 15:52:36,825 - INFO - Shard ID None has connected to Gateway (Session ID: 9b61995dc274fab43d85f5115827452d).
+2024-11-22 15:52:39,697 - INFO - Bot is online as J4RV1S#9623 with mood: TAG!
+2024-11-22 15:53:42,159 - INFO - Sent a cat image to shahipaneer in containment-zone: https://cdn2.thecatapi.com/images/1ds.png
+2024-11-22 16:01:46,593 - INFO - logging in using static token
+2024-11-22 16:01:48,451 - INFO - Shard ID None has connected to Gateway (Session ID: b10d62465b48a5a99a72e8efdd871fc4).
+2024-11-22 16:01:51,275 - INFO - Bot is online as J4RV1S#9623 with mood: life on hard
+2024-11-22 16:04:32,104 - INFO - logging in using static token
+2024-11-22 16:04:34,086 - INFO - Shard ID None has connected to Gateway (Session ID: ecc255e30861dafa15e9698095d88c47).
+2024-11-22 16:04:36,656 - INFO - Bot is online as J4RV1S#9623 with mood: nothing. Help me!
+2024-11-22 16:04:43,254 - INFO - Sent a cat image to shahipaneer in containment-zone: https://cdn2.thecatapi.com/images/bdq.jpg
+2024-11-22 16:05:10,452 - ERROR - Failed to fetch dog image: Cannot connect to host random.dog:443 ssl:default [No address associated with hostname]
+2024-11-22 16:05:10,458 - ERROR - Ignoring exception in command 'woof'
+Traceback (most recent call last):
+  File "/home/rohitbp/.local/lib/python3.10/site-packages/aiohttp/connector.py", line 1345, in _create_direct_connection
+    hosts = await self._resolve_host(host, port, traces=traces)
+  File "/home/rohitbp/.local/lib/python3.10/site-packages/aiohttp/connector.py", line 989, in _resolve_host
+    return await asyncio.shield(resolved_host_task)
+  File "/home/rohitbp/.local/lib/python3.10/site-packages/aiohttp/connector.py", line 1020, in _resolve_host_with_throttle
+    addrs = await self._resolver.resolve(host, port, family=self._family)
+  File "/home/rohitbp/.local/lib/python3.10/site-packages/aiohttp/resolver.py", line 36, in resolve
+    infos = await self._loop.getaddrinfo(
+  File "/usr/lib/python3.10/asyncio/base_events.py", line 863, in getaddrinfo
+    return await self.run_in_executor(
+  File "/usr/lib/python3.10/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/usr/lib/python3.10/socket.py", line 955, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+socket.gaierror: [Errno -3] Temporary failure in name resolution
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/rohitbp/.local/lib/python3.10/site-packages/discord/app_commands/commands.py", line 858, in _do_call
+    return await self._callback(interaction, **params)  # type: ignore
+  File "/media/rohitbp/Windows-SSD/TempBkp2/c0mplex_bot/main.py", line 220, in fetch_dog
+    await interaction.response.send_message("Couldn't fetch a dog image. Try again later!", ephemeral=False)
+  File "/home/rohitbp/.local/lib/python3.10/site-packages/discord/interactions.py", line 855, in send_message
+    await adapter.create_interaction_response(
+  File "/home/rohitbp/.local/lib/python3.10/site-packages/discord/webhook/async_.py", line 179, in request
+    async with session.request(
+  File "/home/rohitbp/.local/lib/python3.10/site-packages/aiohttp/client.py", line 1418, in __aenter__
+    self._resp: _RetType = await self._coro
+  File "/home/rohitbp/.local/lib/python3.10/site-packages/aiohttp/client.py", line 696, in _request
+    conn = await self._connector.connect(
+  File "/home/rohitbp/.local/lib/python3.10/site-packages/aiohttp/connector.py", line 544, in connect
+    proto = await self._create_connection(req, traces, timeout)
+  File "/home/rohitbp/.local/lib/python3.10/site-packages/aiohttp/connector.py", line 1050, in _create_connection
+    _, proto = await self._create_direct_connection(req, traces, timeout)
+  File "/home/rohitbp/.local/lib/python3.10/site-packages/aiohttp/connector.py", line 1351, in _create_direct_connection
+    raise ClientConnectorDNSError(req.connection_key, exc) from exc
+aiohttp.client_exceptions.ClientConnectorDNSError: Cannot connect to host discord.com:443 ssl:default [Temporary failure in name resolution]
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/rohitbp/.local/lib/python3.10/site-packages/discord/app_commands/tree.py", line 1310, in _call
+    await command._invoke_with_namespace(interaction, namespace)
+  File "/home/rohitbp/.local/lib/python3.10/site-packages/discord/app_commands/commands.py", line 883, in _invoke_with_namespace
+    return await self._do_call(interaction, transformed_values)
+  File "/home/rohitbp/.local/lib/python3.10/site-packages/discord/app_commands/commands.py", line 876, in _do_call
+    raise CommandInvokeError(self, e) from e
+discord.app_commands.errors.CommandInvokeError: Command 'woof' raised an exception: ClientConnectorDNSError: Cannot connect to host discord.com:443 ssl:default [Temporary failure in name resolution]
+2024-11-22 16:05:26,217 - ERROR - Ignoring exception in command 'woof'
+Traceback (most recent call last):
+  File "/home/rohitbp/.local/lib/python3.10/site-packages/discord/app_commands/commands.py", line 858, in _do_call
+    return await self._callback(interaction, **params)  # type: ignore
+  File "/media/rohitbp/Windows-SSD/TempBkp2/c0mplex_bot/main.py", line 217, in fetch_dog
+    await interaction.response.send_message(dog_url, ephemeral=False)
+  File "/home/rohitbp/.local/lib/python3.10/site-packages/discord/interactions.py", line 855, in send_message
+    await adapter.create_interaction_response(
+  File "/home/rohitbp/.local/lib/python3.10/site-packages/discord/webhook/async_.py", line 221, in request
+    raise NotFound(response, data)
+discord.errors.NotFound: 404 Not Found (error code: 10062): Unknown interaction
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/rohitbp/.local/lib/python3.10/site-packages/discord/app_commands/tree.py", line 1310, in _call
+    await command._invoke_with_namespace(interaction, namespace)
+  File "/home/rohitbp/.local/lib/python3.10/site-packages/discord/app_commands/commands.py", line 883, in _invoke_with_namespace
+    return await self._do_call(interaction, transformed_values)
+  File "/home/rohitbp/.local/lib/python3.10/site-packages/discord/app_commands/commands.py", line 876, in _do_call
+    raise CommandInvokeError(self, e) from e
+discord.app_commands.errors.CommandInvokeError: Command 'woof' raised an exception: NotFound: 404 Not Found (error code: 10062): Unknown interaction
+2024-11-22 16:05:42,739 - INFO - logging in using static token
+2024-11-22 16:05:44,731 - INFO - Shard ID None has connected to Gateway (Session ID: 6c8cfd6cc6a2ed56f3bea5a2d5ca5a42).
+2024-11-22 16:05:47,245 - INFO - Bot is online as J4RV1S#9623 with mood: nothing. Help me!
+2024-11-22 16:05:49,715 - INFO - Sent a dog image to shahipaneer in containment-zone: https://random.dog/147bec18-d97b-46ac-9c31-8997a0034743.mp4
+2024-11-22 16:06:00,164 - INFO - Sent a dog image to shahipaneer in containment-zone: https://random.dog/bc1225bc-3d15-41c8-a0e3-36f47de9cc5f.jpg
+2024-11-22 16:06:08,813 - INFO - Sent a zen quote to shahipaneer in containment-zone: Before you speak, ask yourself, is it kind, is it necessary, is it true, does it improve the silence?
+2024-11-22 16:06:27,466 - INFO - Gemini response sent to shahipaneer in containment-zone: Hi there. How are you doing today? ...
