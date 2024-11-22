@@ -154,13 +154,16 @@ async def on_message(message):
             logging.info(f"Sent a personalized message from {message.author} to {message.mentions[0]}")
 
     if message.channel.name == "ask-gemini":
-        prompt = message.content.strip()
-        async with message.channel.typing():
-            response = await query_gemini_with_history(prompt)
-            if len(response) > 2000:
-                response = response[:2000]
-        await message.channel.send(response)
-        logging.info(f"Gemini response sent in #{message.channel.name} by {message.author}: {response[:50]} ...")
+        if message.user.id == 551379320309022720:
+            await message.channel.send("जा बे, नहीं दूंगा जवाब")
+        else:
+            prompt = message.content.strip()
+            async with message.channel.typing():
+                response = await query_gemini_with_history(prompt)
+                if len(response) > 2000:
+                    response = response[:2000]
+            await message.channel.send(response)
+            logging.info(f"Gemini response sent in #{message.channel.name} by {message.author}: {response[:50]} ...")
 
     await bot.process_commands(message)
 
@@ -170,7 +173,7 @@ async def on_member_join(member):
     if welcome_channel:
         welcome_message = f"Welcome {member.mention}!"
         gif_url = "https://tenor.com/qJpfghVYyfP.gif"
-        additional_message = "Psst.. Try h! to know what I can do!"
+        additional_message = "Psst.. Try /help to know what I can do!"
         try:
             await welcome_channel.send(welcome_message)
             await welcome_channel.send(gif_url)
