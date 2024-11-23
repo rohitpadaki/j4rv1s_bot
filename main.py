@@ -154,16 +154,13 @@ async def on_message(message):
             logging.info(f"Sent a personalized message from {message.author} to {message.mentions[0]}")
 
     if message.channel.name == "ask-gemini":
-        if message.user.id == 551379320309022720:
-            await message.channel.send("जा बे, नहीं दूंगा जवाब")
-        else:
-            prompt = message.content.strip()
-            async with message.channel.typing():
-                response = await query_gemini_with_history(prompt)
-                if len(response) > 2000:
-                    response = response[:2000]
-            await message.channel.send(response)
-            logging.info(f"Gemini response sent in #{message.channel.name} by {message.author}: {response[:50]} ...")
+        prompt = message.content.strip()
+        async with message.channel.typing():
+            response = await query_gemini_with_history(prompt)
+            if len(response) > 2000:
+                response = response[:2000]
+        await message.channel.send(response)
+        logging.info(f"Gemini response sent in #{message.channel.name} by {message.author}: {response[:50]} ...")
 
     await bot.process_commands(message)
 
@@ -195,10 +192,11 @@ async def set_response(interaction: discord.Interaction, custom_message: str):
 @bot.tree.command(name="ask", description="Ask Gemini AI a question")
 async def ask_gemini_cmd(interaction: discord.Interaction, prompt: str):
     try:
+        await interaction.response.defer(ephemeral=False)
         response = await query_gemini_with_history(prompt)
         if len(response) > 2000:
             response = response[:2000]
-        await interaction.response.send_message(response, ephemeral=False)
+        await interaction.followup.send(response, ephemeral=False)
         logging.info(f"Gemini response sent to {interaction.user} in {interaction.channel}: {response[:50]} ...")
     except Exception as e:
         logging.error(f"Error in ask command: {type(e).__name__}")
