@@ -193,7 +193,7 @@ async def set_response(interaction: discord.Interaction, custom_message: str):
 async def ask_gemini_cmd(interaction: discord.Interaction, prompt: str):
     try:
         await interaction.response.defer(ephemeral=False)
-        response = await query_gemini_with_history(prompt)
+        response = await query_gemini_sdk(prompt)
         if len(response) > 2000:
             response = response[:2000]
         await interaction.followup.send(response, ephemeral=False)
@@ -253,6 +253,11 @@ async def mimic_emote(interaction: discord.Interaction, emote: str):
         await interaction.delete_original_response()
         return
     await interaction.response.send_message(f"Emote '{emote}' not found in this server.", ephemeral=True)
+
+@bot.tree.command(name="flipcoin", description="Flips a coin for decision making")
+async def flip_coin(interaction: discord.Interaction):
+    result = random.randint(0,1)
+    await interaction.response.send_message("Tails" if result == 0 else "Heads", ephemeral=False)
 
 @bot.tree.command(name="help", description="Show the bot's help menu")
 async def help_command(interaction: discord.Interaction):
